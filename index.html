@@ -1,0 +1,572 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EVERYDAY AI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+    color: #172033;
+    transition: 0.3s;
+}
+
+header {
+    background: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1769e0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #172033;
+    margin: 0 10px;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #1769e0;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.hero {
+    text-align: center;
+    padding: 65px 20px;
+    background: #f2f6ff;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #536078;
+}
+
+.search {
+    margin-top: 25px;
+}
+
+.search input {
+    padding: 12px;
+    width: 250px;
+    max-width: 65%;
+    border: 1px solid #ccd5e2;
+    border-radius: 8px;
+}
+
+.section {
+    padding: 45px 5%;
+    text-align: center;
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: left;
+}
+
+.card h3 {
+    color: #1769e0;
+}
+
+.card p {
+    color: #536078;
+}
+
+.card button {
+    margin-top: 10px;
+}
+
+.ai-section {
+    background: #f2f6ff;
+}
+
+.chat-box {
+    max-width: 650px;
+    margin: 25px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid #dce4f0;
+    text-align: left;
+}
+
+.chat-messages {
+    height: 260px;
+    overflow-y: auto;
+    padding: 10px;
+    background: #f7f9fc;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.message {
+    padding: 12px;
+    border-radius: 10px;
+    margin: 10px 0;
+    max-width: 90%;
+    line-height: 1.5;
+}
+
+.user-message {
+    background: #dceaff;
+    margin-left: auto;
+}
+
+.bot-message {
+    background: #e9edf4;
+    color: #172033;
+}
+
+.chat-input {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #ccd5e2;
+    border-radius: 8px;
+}
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+    max-width: 1000px;
+    margin: 25px auto;
+}
+
+.tool-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px;
+    text-align: left;
+}
+
+.tool-card h3 {
+    color: #1769e0;
+}
+
+footer {
+    background: #f2f6ff;
+    text-align: center;
+    padding: 25px;
+}
+
+/* DARK MODE */
+
+body.dark {
+    background: #080d1b;
+    color: white;
+}
+
+body.dark header,
+body.dark .card,
+body.dark .chat-box,
+body.dark .tool-card {
+    background: #111b30;
+    color: white;
+    border-color: #354866;
+}
+
+body.dark nav a {
+    color: white;
+}
+
+body.dark .hero,
+body.dark footer,
+body.dark .ai-section,
+body.dark .section {
+    background: #080d1b;
+    color: white;
+}
+
+body.dark .hero p,
+body.dark .card p {
+    color: #c2cde0;
+}
+
+body.dark .search input,
+body.dark .chat-input input {
+    background: #111b30;
+    color: white;
+    border-color: #354866;
+}
+
+body.dark .chat-messages {
+    background: #080d1b;
+}
+
+body.dark .bot-message {
+    background: #25344d;
+    color: white;
+}
+
+body.dark .user-message {
+    background: #174b88;
+    color: white;
+}
+
+body.dark .tool-card p {
+    color: #c2cde0;
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .chat-input {
+        flex-wrap: wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">EVERYDAY AI</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#ai-central">AI Central</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <button id="themeToggle" onclick="toggleTheme()">
+        🌙 Dark Mode
+    </button>
+</header>
+
+<section class="hero" id="home">
+    <h1>AI for Everyone</h1>
+    <p>One platform. Many possibilities. Helping people around the world.</p>
+
+    <div class="search">
+        <input type="text" id="searchBox"
+        placeholder="Search services...">
+        <button onclick="searchServices()">Search</button>
+    </div>
+</section>
+
+<section class="section" id="services">
+    <h2>Explore Our Services</h2>
+
+    
+<div class="services" id="serviceList">
+
+    <div class="card">
+        <h3>🤖 AI Central</h3>
+        <p>Your place for helpful AI tools and assistance.</p>
+        <button onclick="goToAI()">Explore AI</button>
+    </div>
+
+    <div class="card">
+        <h3>📚 Education</h3>
+        <p>Learn subjects, understand lessons and improve skills.</p>
+        <button onclick="goToSection('education')">Explore Education</button>
+    </div>
+
+    <div class="card">
+        <h3>💬 Communication</h3>
+        <p>Tools to help people communicate and connect.</p>
+        <button onclick="goToSection('communication')">Explore Communication</button>
+    </div>
+
+    <div class="card">
+        <h3>⚡ Productivity</h3>
+        <p>Organise tasks, ideas and everyday work.</p>
+        <button onclick="goToSection('productivity')">Explore Productivity</button>
+    </div>
+
+    <div class="card">
+        <h3>🌍 Knowledge</h3>
+        <p>Explore information and discover new things.</p>
+        <button onclick="goToSection('knowledge')">Explore Knowledge</button>
+    </div>
+
+    <div class="card">
+        <h3>🔬 Research</h3>
+        <p>Explore topics and support your research work.</p>
+        <button onclick="goToSection('research')">Explore Research</button>
+    </div>
+
+</div>
+
+
+        <div class="card">
+            <h3>📚 Education</h3>
+            <p>Learn subjects, understand lessons and improve skills.</p>
+        </div>
+
+        <div class="card">
+            <h3>💬 Communication</h3>
+            <p>Tools to help people communicate and connect.</p>
+        </div>
+
+        <div class="card">
+            <h3>⚡ Productivity</h3>
+            <p>Organise tasks, ideas and everyday work.</p>
+        </div>
+
+        <div class="card">
+            <h3>🌍 Knowledge</h3>
+            <p>Explore information and discover new things.</p>
+        </div>
+
+        <div class="card">
+            <h3>🔬 Research</h3>
+            <p>Explore topics and support your research work.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- AI CENTRAL -->
+
+<section class="section ai-section" id="ai-central">
+
+    <h2>🤖 AI Central</h2>
+
+    <p>Welcome to your everyday AI destination.</p>
+
+    <div class="chat-box">
+
+        <h3>EVERYDAY AI Assistant</h3>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                Hello! Welcome to EVERYDAY AI.
+                This is our first chat demo.
+                What would you like to explore?
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" id="userMessage"
+            placeholder="Type your message..."
+            onkeydown="if(event.key === 'Enter') sendMessage()">
+
+            <button onclick="sendMessage(
+async function sendMessage() {
+    const input = document.getElementById("userMessage");
+    const messages = document.getElementById("chatMessages");
+    const sendButton = document.querySelector(".chat-input button");
+
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    const userDiv = document.createElement("div");
+    userDiv.className = "message user-message";
+    userDiv.textContent = text;
+    messages.appendChild(userDiv);
+
+    input.value = "";
+
+    const botDiv = document.createElement("div");
+    botDiv.className = "message bot-message";
+    botDiv.textContent = "EVERYDAY AI is thinking...";
+    messages.appendChild(botDiv);
+
+    input.disabled = true;
+    sendButton.disabled = true;
+
+    messages.scrollTop = messages.scrollHeight;
+
+    try {
+        const response = await fetch("/.netlify/functions/ai", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: text
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "AI connection failed.");
+        }
+
+        botDiv.textContent = data.answer;
+
+    } catch (error) {
+        botDiv.textContent =
+            "Sorry! I couldn't connect to AI. Please try again later.";
+    }
+
+    input.disabled = false;
+    sendButton.disabled = false;
+    input.focus();
+
+    messages.scrollTop = messages.scrollHeight;
+}
+)">Send</button>
+        </div>
+
+        <p style="font-size:12px;color:gray;">
+            Demo version: This chat is not yet connected
+            to a real AI service.
+        </p>
+
+    </div>
+
+    <h2>Explore AI Tools</h2>
+
+    <div class="tool-grid">
+
+        <div class="tool-card">
+            <h3>✍️ Writing Assistant</h3>
+            <p>Explore tools that help with writing and ideas.</p>
+        </div>
+
+        <div class="tool-card">
+            <h3>🎨 Image AI</h3>
+            <p>Discover AI tools for creating images.</p>
+        </div>
+
+        <div class="tool-card">
+            <h3>📖 Learning AI</h3>
+            <p>Discover tools for learning and education.</p>
+        </div>
+
+        <div class="tool-card">
+            <h3>💡 Idea Generator</h3>
+            <p>Explore tools for brainstorming new ideas.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section" id="about">
+    <h2>About EVERYDAY AI</h2>
+    <p>Our mission is to make useful technology accessible to everyone.</p>
+</section>
+
+<footer>
+    <p>© 2026 EVERYDAY AI. Built to help everyone.</p>
+</footer>
+
+<script>
+
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+
+    const button = document.getElementById("themeToggle");
+
+    if (document.body.classList.contains("dark")) {
+        button.innerText = "☀️ Light Mode";
+    } else {
+        button.innerText = "🌙 Dark Mode";
+    }
+}
+
+function searchServices() {
+    const searchText =
+    document.getElementById("searchBox").value.toLowerCase().trim();
+
+    const cards = document.querySelectorAll(".services .card");
+
+    cards.forEach(function(card) {
+        const cardText = card.innerText.toLowerCase();
+
+        if (cardText.includes(searchText)) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+function goToAI() {
+    document.getElementById("ai-central").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function sendMessage() {
+
+    const input = document.getElementById("userMessage");
+    const messages = document.getElementById("chatMessages");
+
+    const text = input.value.trim();
+
+    if (text === "") {
+        return;
+    }
+
+    const userDiv = document.createElement("div");
+    userDiv.className = "message user-message";
+    userDiv.textContent = text;
+
+    messages.appendChild(userDiv);
+
+    const botDiv = document.createElement("div");
+    botDiv.className = "message bot-message";
+
+    botDiv.textContent =
+    "Thanks for trying EVERYDAY AI! This is currently a demonstration chat, not a connected AI model. Our next development step is to connect real AI intelligence.";
+
+    messages.appendChild(botDiv);
+
+    input.value = "";
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
+```
